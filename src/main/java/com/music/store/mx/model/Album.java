@@ -14,7 +14,7 @@
 */
 package com.music.store.mx.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -57,7 +57,7 @@ public class Album {
 
   /** The release. */
   @Column(name = "lanzamiento", nullable = false)
-  private Date release;
+  private LocalDateTime release;
 
   /** The label. */
   @Column(name = "disquera", nullable = false, length = 45)

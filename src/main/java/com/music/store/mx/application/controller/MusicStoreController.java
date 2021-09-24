@@ -29,8 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.music.store.mx.application.dto.AlbumDto;
 import com.music.store.mx.application.dto.SongDto;
 import com.music.store.mx.application.service.MusicStoreService;
-import com.music.store.mx.model.Album;
-import com.music.store.mx.model.Song;
 
 /**
  * The Class MusicStoreController.
@@ -67,7 +65,7 @@ public class MusicStoreController {
    * @return the response entity
    */
   @PostMapping(value = "/api/v1/albums", produces = "application/json")
-  public ResponseEntity<Album> saveAlbum(@RequestBody AlbumDto albumDto) {
+  public ResponseEntity<AlbumDto> saveAlbum(@RequestBody AlbumDto albumDto) {
     return new ResponseEntity<>(musicStoreService.saveAlbum(albumDto), HttpStatus.CREATED);
   }
 
@@ -127,7 +125,12 @@ public class MusicStoreController {
    */
   @DeleteMapping(value = "/api/v1/albums/{albumId}", produces = "application/json")
   public ResponseEntity<Boolean> deleteAlbumById(@PathVariable("albumId") Integer albumId) {
-    return new ResponseEntity<>(musicStoreService.deleteAlbumById(albumId), HttpStatus.OK);
+    if(musicStoreService.deleteAlbumById(albumId)) {
+      return new ResponseEntity<>(HttpStatus.OK);
+    }
+    else {
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
   }
 
   /**
@@ -149,7 +152,7 @@ public class MusicStoreController {
    * @return the response entity
    */
   @PostMapping(value = "/api/v1/albums/{albumId}/songs", produces = "application/json")
-  public ResponseEntity<Song> createSongByAlbum(@PathVariable Integer albumId,
+  public ResponseEntity<SongDto> createSongByAlbum(@PathVariable Integer albumId,
       @RequestBody SongDto songDto) {
     return new ResponseEntity<>(musicStoreService.saveSongByAlbum(songDto, albumId),
         HttpStatus.CREATED);
@@ -189,7 +192,7 @@ public class MusicStoreController {
    * @return the song by album
    */
   @GetMapping(value = "/api/v1/albums/{albumId}/songs/{songId}", produces = "application/json")
-  public ResponseEntity<Song> getSongByAlbum(@PathVariable Integer albumId,
+  public ResponseEntity<SongDto> getSongByAlbum(@PathVariable Integer albumId,
       @PathVariable Integer songId) {
     return new ResponseEntity<>(musicStoreService.getSongByAlbum(songId, albumId), HttpStatus.OK);
   }
@@ -203,7 +206,7 @@ public class MusicStoreController {
    * @return the response entity
    */
   @PutMapping(value = "/api/v1/albums/{albumId}/songs/{songId}", produces = "application/json")
-  public ResponseEntity<Song> updateSongByAlbum(@PathVariable Integer albumId,
+  public ResponseEntity<SongDto> updateSongByAlbum(@PathVariable Integer albumId,
       @PathVariable Integer songId, @RequestBody SongDto songDto) {
     return new ResponseEntity<>(musicStoreService.updateSongByAlbum(songId, albumId, songDto),
         HttpStatus.OK);
@@ -217,11 +220,14 @@ public class MusicStoreController {
    * @return the response entity
    */
   @DeleteMapping(value = "/api/v1/albums/{albumId}/songs/{songId}", produces = "application/json")
-  public ResponseEntity<Void> deleteSongByAlbum(@PathVariable Integer albumId,
+  public ResponseEntity<Boolean> deleteSongByAlbum(@PathVariable Integer albumId,
       @PathVariable Integer songId) {
-    musicStoreService.deleteSongByAlbum(songId, albumId);
-    return new ResponseEntity<>(HttpStatus.OK);
-  }
+    if(!musicStoreService.deleteSongByAlbum(songId, albumId)) {
+      return new ResponseEntity<>(HttpStatus.OK);
+    }
+    else
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
   /**
    * Gets the songs.

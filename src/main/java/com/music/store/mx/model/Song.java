@@ -65,5 +65,4 @@ public class Song {
   /** The duration. */
   @Column(name = "duracion", nullable = false)
   private Double duration;
-
 }

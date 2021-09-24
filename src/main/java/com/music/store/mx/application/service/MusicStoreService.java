@@ -10,16 +10,15 @@
 *
 * Nombre de archivo: MusicStoreService.java
 * Autor: raforteg
-* Fecha de creación: 22 sep. 2021
+* Fecha de creación: 24 sep. 2021
 */
+
 
 package com.music.store.mx.application.service;
 
+import java.util.List;
 import com.music.store.mx.application.dto.AlbumDto;
 import com.music.store.mx.application.dto.SongDto;
-import com.music.store.mx.model.Album;
-import com.music.store.mx.model.Song;
-import java.util.List;
 
 /**
  * The Interface MusicStoreService.
@@ -39,7 +38,7 @@ public interface MusicStoreService {
    * @param albumDto the album dto
    * @return the album
    */
-  Album saveAlbum(AlbumDto albumDto);
+  AlbumDto saveAlbum(AlbumDto albumDto);
 
 
   /**
@@ -94,7 +93,7 @@ public interface MusicStoreService {
    * @param albumId the album id
    * @return the song
    */
-  Song saveSongByAlbum(SongDto songDto, Integer albumId);
+  SongDto saveSongByAlbum(SongDto songDto, Integer albumId);
 
   /**
    * Delete all songs.
@@ -118,7 +117,7 @@ public interface MusicStoreService {
    * @param albumId the album id
    * @return the song by album
    */
-  Song getSongByAlbum(Integer songId, Integer albumId);
+  SongDto getSongByAlbum(Integer songId, Integer albumId);
 
   /**
    * Update song by album.
@@ -128,15 +127,16 @@ public interface MusicStoreService {
    * @param songDto the song dto
    * @return the song
    */
-  Song updateSongByAlbum(Integer songId, Integer albumId, SongDto songDto);
+  SongDto updateSongByAlbum(Integer songId, Integer albumId, SongDto songDto);
 
   /**
    * Delete song by album.
    *
    * @param songId the song id
    * @param albumId the album id
+   * @return true, if successful
    */
-  void deleteSongByAlbum(Integer songId, Integer albumId);
+  boolean deleteSongByAlbum(Integer songId, Integer albumId);
 
   /**
    * Retrieve songs.

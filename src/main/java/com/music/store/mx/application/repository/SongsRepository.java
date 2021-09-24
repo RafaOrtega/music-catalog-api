@@ -10,8 +10,9 @@
 *
 * Nombre de archivo: SongsRepository.java
 * Autor: raforteg
-* Fecha de creación: 23 sep. 2021
+* Fecha de creación: 24 sep. 2021
 */
+
 
 package com.music.store.mx.application.repository;
 
@@ -57,6 +58,13 @@ public interface SongsRepository extends JpaRepository<Song, Integer> {
    * @return the song
    */
   Song saveAndFlush(Song s);
+
+  /**
+   * Delete by id.
+   *
+   * @param songId the song id
+   */
+  void deleteById(Integer songId);
 
   /**
    * Delete in batch.

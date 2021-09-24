@@ -10,14 +10,14 @@
 *
 * Nombre de archivo: AlbumRepository.java
 * Autor: raforteg
-* Fecha de creación: 23 sep. 2021
+* Fecha de creación: 24 sep. 2021
 */
+
 
 package com.music.store.mx.application.repository;
 
 import java.util.List;
 import javax.transaction.Transactional;
-import org.jboss.logging.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -77,5 +77,12 @@ public interface AlbumRepository extends JpaRepository<Album, Integer> {
   @Query("UPDATE Album SET label = ?1")
   void updateLabelForAllAlbums(String newLabel);
 
+  /**
+   * Delete all albums.
+   */
+  @Modifying
+  @Transactional
+  @Query("DELETE FROM Album")
+  void deleteAllAlbums();
 
 }

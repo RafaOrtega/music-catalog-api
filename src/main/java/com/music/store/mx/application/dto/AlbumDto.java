@@ -14,7 +14,7 @@
 */
 package com.music.store.mx.application.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,7 +48,7 @@ public class AlbumDto {
   private String title;
 
   /** The release. */
-  private Date release;
+  private LocalDateTime release;
 
   /** The label. */
   private String label;
